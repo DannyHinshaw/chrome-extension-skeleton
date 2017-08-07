@@ -7,7 +7,8 @@ module.exports = {
     content: './src/js/content',
     devTools: './src/js/devTools',
     options: './src/js/options',
-    popup: './src/js/popup'
+    popup: './src/js/popup',
+    // styles: './src/styles/styles.scss'
   },
   output: {
     filename: './js/[name].js'
@@ -18,18 +19,26 @@ module.exports = {
   module: {
     rules: [{
       test: /\.js$/,
-      loader: 'babel-loader',
-      include: path.resolve(__dirname, '../src/js'),
-      query: {
-        presets: ['es2015', 'stage-1']
-      }
-    }, {
-      test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('css!sass')
+      use: 'babel-loader',
+      include: path.resolve(__dirname, '../src/js')
+    },
+    { // regular css files
+      test: /\.css$/,
+      include: path.resolve(__dirname, '../src/styles'),
+      use: ExtractTextPlugin.extract({
+        use: 'css-loader',
+      }),
+    },
+    { // sass / scss loader for webpack
+      test: /\.(sass|scss)$/,
+      include: path.resolve(__dirname, '../src/styles'),
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader', // backup loader when not building .css file
+        use: ['css-loader', 'sass-loader']
+      })
     }]
   },
   plugins: [
-    new ExtractTextPlugin('scss/common.scss', { allChunks: true })
+    new ExtractTextPlugin('styles/[name].css'),
   ]
-
 };
