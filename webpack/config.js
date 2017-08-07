@@ -29,9 +29,7 @@ module.exports = {
     }]
   },
   plugins: [
-    new ExtractTextPlugin('css/common.css', {
-      allChunks: true
-    })
+    new ExtractTextPlugin('scss/common.scss', { allChunks: true })
   ]
 
 };

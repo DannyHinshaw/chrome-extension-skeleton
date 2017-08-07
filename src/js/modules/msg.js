@@ -402,7 +402,7 @@ Messaging.prototype.onCustomMsg = function onCustomMsg(message) {
     // background
     if (message.cmd === 'request') {
       const targetPorts = this.selectTargets(false, message.tabId, message.contexts,
-                                           message.category, message.portId);
+                                           message.category, message.portId); // eslint-disable-line
       let responsesNeeded = targetPorts.length;
       if ((message.tabId === undefined) &&
            (!message.contexts || (message.contexts.indexOf('bg') !== -1))) {
@@ -807,7 +807,7 @@ Messaging.prototype.createMsgObject = function createMsgObject(myContextName) {
 
       const _arr = this.pendingReqs[extensionId] || [];
       _arr.push({ id: this.requestId,
-        cb(result/* , resultValid/**/) { // ignore 'resultValid' because it is not applicable here
+        cb(result/* , resultValid /* */) { // ignore 'resultValid' because it is not applicable here
           if (callback) { callback(result); }
         }
       });

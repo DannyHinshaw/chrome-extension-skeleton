@@ -91,7 +91,7 @@ build/updates.xml
 .idea/**/gradle.xml
 .idea/**/libraries
 
-# ALL THE FUCKING .idea FILES
+# ALL .idea FILES
 .idea/*
 
 # CMake
