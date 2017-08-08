@@ -8,35 +8,38 @@ module.exports = {
     devTools: './src/js/devTools',
     options: './src/js/options',
     popup: './src/js/popup',
-    // styles: './src/styles/styles.scss'
+    // TODO: Resolve 'styles' folder
+    styles: './src/styles/styles.scss'
   },
   output: {
     filename: './js/[name].js'
   },
   resolve: {
+    extensions: ['.js', '.css', '.scss'],
     modules: [path.join(__dirname, 'src'), 'node_modules']
   },
   module: {
-    rules: [{
-      test: /\.js$/,
-      use: 'babel-loader',
-      include: path.resolve(__dirname, '../src/js')
-    },
-    { // regular css files
-      test: /\.css$/,
-      include: path.resolve(__dirname, '../src/styles'),
-      use: ExtractTextPlugin.extract({
-        use: 'css-loader',
-      }),
-    },
-    { // sass / scss loader for webpack
-      test: /\.(sass|scss)$/,
-      include: path.resolve(__dirname, '../src/styles'),
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader', // backup loader when not building .css file
-        use: ['css-loader', 'sass-loader']
-      })
-    }]
+    rules: [
+      {
+        test: /\.js$/,
+        use: 'babel-loader',
+        include: path.resolve(__dirname, '../src/js')
+      },
+      { // regular css files
+        test: /\.css$/,
+        include: path.resolve(__dirname, '../src/styles'),
+        use: ExtractTextPlugin.extract({
+          use: 'css-loader',
+        }),
+      },
+      { // sass / scss loader for webpack
+        test: /\.(sass|scss)$/,
+        include: path.resolve(__dirname, '../src/styles'),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader', // backup loader when not building .css file
+          use: ['css-loader', 'sass-loader']
+        })
+      }]
   },
   plugins: [
     new ExtractTextPlugin('styles/[name].css'),
